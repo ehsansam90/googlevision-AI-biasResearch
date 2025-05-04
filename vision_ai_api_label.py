@@ -2,9 +2,13 @@ import os
 import io
 from google.cloud import vision
 import pandas as pd
+from configparser import ConfigParser
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'visionai-379417-544db22509ed.json'
+config = ConfigParser()
+config.read('config.ini')
 
+credentials_path = config.get('google', 'credentials_path')
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials_path
 def detect_labels(path):
     client = vision.ImageAnnotatorClient()
     # The name of the image file to annotate
